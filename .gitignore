@@ -10,6 +10,8 @@ node_modules/
 server/node_modules/
 supabase/node_modules/
 .pnpm-store/
+package-lock.json
+
 
 # Supabase
 .supabase/
@@ -47,3 +49,6 @@ Thumbs.db
 .cache/
 temp/
 tmp/
+
+# Trae IDE
+.trae/

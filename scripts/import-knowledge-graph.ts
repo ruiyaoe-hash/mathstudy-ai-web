@@ -6,10 +6,72 @@
 import { createClient } from '@supabase/supabase-js';
 import knowledgeGraph from '../database/data/knowledge-graph.json';
 
-const SUPABASE_URL = "https://szlkizzsnrjjpibsjizn.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6bGtpenpzbnJqanBpYnNqaXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODc4MTgsImV4cCI6MjA4Mzk2MzgxOH0.owbx7K0YVRE2xhNaJTlrS_uCrLCOesIIyBghroY8shs";
+// 自动加载.env文件
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import fs from 'fs';
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+// 获取当前文件路径
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// 读取.env文件
+const envPath = join(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  envContent.split('\n').forEach(line => {
+    // 忽略注释和空行
+    if (line.trim() && !line.startsWith('#')) {
+      const [key, ...valueParts] = line.split('=');
+      const value = valueParts.join('=').trim().replace(/^"|"$/g, '');
+      if (key && value) {
+        process.env[key.trim()] = value;
+      }
+    }
+  });
+  console.log('已从.env文件加载环境变量');
+}
+
+// 从环境变量获取Supabase配置
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || '';
+const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || '';
+
+// 验证环境变量是否存在
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error('错误: 缺少Supabase配置环境变量');
+  console.error('请确保已设置 VITE_SUPABASE_URL 和 VITE_SUPABASE_ANON_KEY 环境变量');
+  console.error('或在项目根目录创建.env文件，填入配置信息');
+  process.exit(1);
+}
+
+// 验证URL格式是否正确
+if (SUPABASE_URL === 'your_supabase_url_here' || !SUPABASE_URL.startsWith('https://')) {
+  console.error('错误: Supabase URL 格式无效');
+  console.error('当前URL:', SUPABASE_URL);
+  console.error('请确保URL以 https:// 开头，格式应为: https://your-project-id.supabase.co');
+  console.error('请在 .env 文件中修改 VITE_SUPABASE_URL 配置');
+  process.exit(1);
+}
+
+// 验证密钥是否有效
+if (SUPABASE_KEY === 'your_supabase_anon_key_here' || SUPABASE_KEY.length < 10) {
+  console.error('错误: Supabase 匿名密钥无效');
+  console.error('当前密钥:', SUPABASE_KEY);
+  console.error('请确保密钥长度足够，且不是占位符');
+  console.error('请在 .env 文件中修改 VITE_SUPABASE_ANON_KEY 配置');
+  process.exit(1);
+}
+
+let supabase;
+try {
+  supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  console.log('成功连接到 Supabase');
+} catch (error) {
+  console.error('错误: 无法连接到 Supabase');
+  console.error('详细错误:', error.message);
+  console.error('请检查 .env 文件中的配置是否正确');
+  process.exit(1);
+}
 
 async function importKnowledgeGraph() {
   console.log('开始导入知识图谱数据...');

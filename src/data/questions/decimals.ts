@@ -1,0 +1,225 @@
+import { Question } from '@/types/game';
+
+export const decimalsQuestions: Question[] = [
+  // Level 1 - 小数初识
+  {
+    id: 'dc-1-1',
+    type: 'choice',
+    question: '0.3表示什么？',
+    options: ['3个十', '3个一', '3个十分之一', '3个百分之一'],
+    answer: 2,
+    explanation: '0.3 = 3/10，表示3个十分之一',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-1-2',
+    type: 'fill',
+    question: '2.05读作______',
+    answer: '二点零五',
+    explanation: '小数读法：整数部分按整数读，小数点读"点"，小数部分依次读出每个数字',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-1-3',
+    type: 'choice',
+    question: '五点零八写作：',
+    options: ['5.8', '5.08', '5.008', '50.8'],
+    answer: 1,
+    explanation: '五点零八 = 5.08',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-1-4',
+    type: 'fill',
+    question: '0.25表示______个百分之一',
+    answer: '25',
+    explanation: '0.25 = 25/100，表示25个百分之一',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-1-5',
+    type: 'choice',
+    question: '下列小数中，表示百分之一的是：',
+    options: ['0.1', '0.01', '0.001', '1.0'],
+    answer: 1,
+    explanation: '0.01 = 1/100 = 一个百分之一',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-1-6',
+    type: 'fill',
+    question: '3米5分米写成小数是______米',
+    answer: '3.5',
+    explanation: '5分米 = 0.5米，所以3米5分米 = 3.5米',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-1-7',
+    type: 'choice',
+    question: '8角5分等于多少元？',
+    options: ['8.5元', '0.85元', '85元', '0.085元'],
+    answer: 1,
+    explanation: '8角 = 0.8元，5分 = 0.05元，合计0.85元',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-1-8',
+    type: 'fill',
+    question: '12.07读作______',
+    answer: '十二点零七',
+    explanation: '整数部分12读"十二"，小数点读"点"，小数部分07读"零七"',
+    difficulty: 1,
+  },
+  // Level 2 - 小数比较
+  {
+    id: 'dc-2-1',
+    type: 'choice',
+    question: '比较：0.5___0.50',
+    options: ['>', '<', '=', '无法比较'],
+    answer: 2,
+    explanation: '0.5 = 0.50，小数末尾添0或去0，小数大小不变',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-2-2',
+    type: 'choice',
+    question: '下列小数中最大的是：',
+    options: ['3.5', '3.05', '3.50', '3.055'],
+    answer: 0,
+    explanation: '3.5=3.50>3.055>3.05',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-2-3',
+    type: 'fill',
+    question: '把3.6、3.06、3.60、3.066按从大到小排列：______',
+    answer: '3.6=3.60>3.066>3.06',
+    explanation: '3.6=3.60，3.066>3.06（小数位数相同时比较数值）',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-2-4',
+    type: 'choice',
+    question: '比较：0.9___0.89',
+    options: ['>', '<', '=', '无法比较'],
+    answer: 0,
+    explanation: '0.9 = 0.90 > 0.89',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-2-5',
+    type: 'choice',
+    question: '在0.8和0.9之间有多少个小数？',
+    options: ['0个', '9个', '无数个', '1个'],
+    answer: 2,
+    explanation: '0.8和0.9之间有无数个小数，如0.81、0.82、0.811等',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-2-6',
+    type: 'fill',
+    question: '4.□>4.5，□里最小可以填______',
+    answer: '6',
+    explanation: '要使4.□>4.5，□必须大于5，最小是6',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-2-7',
+    type: 'choice',
+    question: '0.100与下面哪个数相等？',
+    options: ['0.01', '0.1', '1.00', '0.001'],
+    answer: 1,
+    explanation: '0.100 = 0.10 = 0.1（小数末尾的0可以去掉）',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-2-8',
+    type: 'fill',
+    question: '比0.4大比0.5小的一位小数有______个',
+    answer: '0',
+    explanation: '一位小数中，0.4和0.5之间没有其他一位小数',
+    difficulty: 2,
+  },
+  // Level 3 - 小数运算
+  {
+    id: 'dc-3-1',
+    type: 'fill',
+    question: '计算：3.5 + 2.4 = ______',
+    answer: '5.9',
+    explanation: '3.5 + 2.4 = 5.9（小数点对齐相加）',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-3-2',
+    type: 'choice',
+    question: '8.6 - 3.2 = ？',
+    options: ['5.4', '5.2', '5.6', '4.4'],
+    answer: 0,
+    explanation: '8.6 - 3.2 = 5.4',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-3-3',
+    type: 'fill',
+    question: '计算：12.05 + 3.8 = ______',
+    answer: '15.85',
+    explanation: '12.05 + 3.80 = 15.85（小数点对齐，位数不够补0）',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-3-4',
+    type: 'choice',
+    question: '9.5 - 4.75 = ？',
+    options: ['4.25', '4.75', '5.25', '5.75'],
+    answer: 1,
+    explanation: '9.50 - 4.75 = 4.75',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-3-5',
+    type: 'fill',
+    question: '小明买文具花了5.6元，买零食花了3.4元，一共花了______元',
+    answer: '9',
+    explanation: '5.6 + 3.4 = 9元',
+    difficulty: 1,
+  },
+  {
+    id: 'dc-3-6',
+    type: 'choice',
+    question: '一根绳子长12.5米，用去7.8米，还剩多少米？',
+    options: ['4.7米', '4.3米', '5.7米', '5.3米'],
+    answer: 0,
+    explanation: '12.5 - 7.8 = 4.7米',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-3-7',
+    type: 'fill',
+    question: '计算：10 - 3.25 = ______',
+    answer: '6.75',
+    explanation: '10.00 - 3.25 = 6.75',
+    difficulty: 2,
+  },
+  {
+    id: 'dc-3-8',
+    type: 'choice',
+    question: '小红有20元，买书花了8.5元，买笔花了3.2元，还剩多少元？',
+    options: ['8.3元', '8.7元', '9.3元', '7.3元'],
+    answer: 0,
+    explanation: '20 - 8.5 - 3.2 = 11.5 - 3.2 = 8.3元',
+    difficulty: 2,
+  },
+];
+
+export const getDecimalsQuestions = (levelId: string): Question[] => {
+  if (levelId === 'level-1') {
+    return decimalsQuestions.filter((q) => q.id.startsWith('dc-1'));
+  }
+  if (levelId === 'level-2') {
+    return decimalsQuestions.filter((q) => q.id.startsWith('dc-2'));
+  }
+  if (levelId === 'level-3') {
+    return decimalsQuestions.filter((q) => q.id.startsWith('dc-3'));
+  }
+  return [];
+};

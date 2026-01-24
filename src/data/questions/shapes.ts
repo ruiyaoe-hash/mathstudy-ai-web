@@ -1,0 +1,233 @@
+import { Question } from '@/types/game';
+
+export const shapesQuestions: Question[] = [
+  // Level 1 - 四边形认识
+  {
+    id: 'sh-1-1',
+    type: 'choice',
+    question: '四边形有几条边？',
+    options: ['3条', '4条', '5条', '6条'],
+    answer: 1,
+    explanation: '四边形有4条边、4个角和4个顶点',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-1-2',
+    type: 'choice',
+    question: '下列图形中，哪个是平行四边形？',
+    options: ['正方形', '长方形', '梯形', '以上都是'],
+    answer: 3,
+    explanation: '正方形、长方形都是特殊的平行四边形（两组对边分别平行）',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-1-3',
+    type: 'choice',
+    question: '梯形有几组平行的对边？',
+    options: ['0组', '1组', '2组', '3组'],
+    answer: 1,
+    explanation: '梯形只有一组对边平行（上底和下底）',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-1-4',
+    type: 'fill',
+    question: '平行四边形有______组对边平行',
+    answer: '2',
+    explanation: '平行四边形的特征是两组对边分别平行',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-1-5',
+    type: 'choice',
+    question: '下列说法正确的是：',
+    options: [
+      '正方形不是平行四边形',
+      '长方形是特殊的平行四边形',
+      '梯形有两组对边平行',
+      '平行四边形四条边都相等',
+    ],
+    answer: 1,
+    explanation: '长方形两组对边分别平行且相等，是特殊的平行四边形',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-1-6',
+    type: 'choice',
+    question: '平行四边形对角的关系是：',
+    options: ['相等', '互补', '没有关系', '相差90°'],
+    answer: 0,
+    explanation: '平行四边形的对角相等',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-1-7',
+    type: 'fill',
+    question: '梯形中平行的一组边叫______和______',
+    answer: '上底和下底',
+    explanation: '梯形平行的两条边分别叫上底和下底',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-1-8',
+    type: 'choice',
+    question: '等腰梯形的特点是：',
+    options: ['四边相等', '两腰相等', '上下底相等', '对角相等'],
+    answer: 1,
+    explanation: '等腰梯形的两条腰（不平行的两边）相等',
+    difficulty: 2,
+  },
+  // Level 2 - 图形特征
+  {
+    id: 'sh-2-1',
+    type: 'choice',
+    question: '从平行四边形一个顶点向对边画垂线，垂线的长度叫做：',
+    options: ['边长', '周长', '高', '对角线'],
+    answer: 2,
+    explanation: '从平行四边形的顶点向对边引的垂线段叫做高',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-2-2',
+    type: 'choice',
+    question: '平行四边形可以画几条高？',
+    options: ['1条', '2条', '无数条', '4条'],
+    answer: 2,
+    explanation: '平行四边形可以画无数条高，但通常只关注两组高',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-2-3',
+    type: 'fill',
+    question: '长方形有______条高',
+    answer: '无数',
+    explanation: '长方形是特殊的平行四边形，可以画无数条高',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-2-4',
+    type: 'choice',
+    question: '下列图形中，对角线互相垂直的是：',
+    options: ['长方形', '平行四边形', '正方形', '梯形'],
+    answer: 2,
+    explanation: '正方形的两条对角线互相垂直且相等',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-2-5',
+    type: 'choice',
+    question: '平行四边形相邻两个角的关系是：',
+    options: ['相等', '互补（和为180°）', '和为90°', '没有关系'],
+    answer: 1,
+    explanation: '平行四边形相邻两角互补，即和为180°',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-2-6',
+    type: 'fill',
+    question: '梯形的高是______的两条边之间的距离',
+    answer: '平行',
+    explanation: '梯形的高是上底和下底（平行的两边）之间的垂直距离',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-2-7',
+    type: 'choice',
+    question: '将一个平行四边形沿高剪开，可以拼成什么图形？',
+    options: ['三角形', '长方形', '梯形', '圆形'],
+    answer: 1,
+    explanation: '平行四边形沿高剪开再拼合，可以变成长方形',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-2-8',
+    type: 'choice',
+    question: '下面关于梯形的说法，错误的是：',
+    options: ['梯形有两条平行的边', '梯形有一组对边平行', '梯形是四边形', '梯形的高只有一条'],
+    answer: 3,
+    explanation: '梯形可以画无数条高（上底和下底之间的垂线段）',
+    difficulty: 2,
+  },
+  // Level 3 - 图形计算
+  {
+    id: 'sh-3-1',
+    type: 'fill',
+    question: '一个平行四边形的底是8厘米，高是5厘米，它的面积是______平方厘米',
+    answer: '40',
+    explanation: '平行四边形面积 = 底 × 高 = 8 × 5 = 40平方厘米',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-3-2',
+    type: 'choice',
+    question: '平行四边形的底是12米，高是9米，面积是：',
+    options: ['42平方米', '108平方米', '21平方米', '54平方米'],
+    answer: 1,
+    explanation: '平行四边形面积 = 底 × 高 = 12 × 9 = 108平方米',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-3-3',
+    type: 'fill',
+    question: '一个平行四边形的面积是72平方厘米，底是9厘米，高是______厘米',
+    answer: '8',
+    explanation: '高 = 面积 ÷ 底 = 72 ÷ 9 = 8厘米',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-3-4',
+    type: 'choice',
+    question: '梯形的面积公式是：',
+    options: ['底×高', '(上底+下底)×高÷2', '上底×下底×高', '周长×高'],
+    answer: 1,
+    explanation: '梯形面积 = (上底 + 下底) × 高 ÷ 2',
+    difficulty: 1,
+  },
+  {
+    id: 'sh-3-5',
+    type: 'fill',
+    question: '一个梯形上底5厘米，下底9厘米，高6厘米，面积是______平方厘米',
+    answer: '42',
+    explanation: '梯形面积 = (5+9) × 6 ÷ 2 = 14 × 6 ÷ 2 = 42平方厘米',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-3-6',
+    type: 'choice',
+    question: '一块平行四边形草地，底是45米，高是20米，每平方米种3棵花，一共要种多少棵？',
+    options: ['2700棵', '2600棵', '2800棵', '2500棵'],
+    answer: 0,
+    explanation: '面积 = 45 × 20 = 900平方米，花数 = 900 × 3 = 2700棵',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-3-7',
+    type: 'fill',
+    question: '一个梯形的面积是30平方厘米，高是5厘米，上底和下底的和是______厘米',
+    answer: '12',
+    explanation: '上底+下底 = 面积 × 2 ÷ 高 = 30 × 2 ÷ 5 = 12厘米',
+    difficulty: 2,
+  },
+  {
+    id: 'sh-3-8',
+    type: 'choice',
+    question: '把一个平行四边形剪成两个完全一样的三角形，每个三角形的面积是平行四边形面积的：',
+    options: ['一半', '两倍', '相等', '四分之一'],
+    answer: 0,
+    explanation: '平行四边形可以沿对角线剪成两个相等的三角形，每个是原面积的一半',
+    difficulty: 2,
+  },
+];
+
+export const getShapesQuestions = (levelId: string): Question[] => {
+  if (levelId === 'level-1') {
+    return shapesQuestions.filter((q) => q.id.startsWith('sh-1'));
+  }
+  if (levelId === 'level-2') {
+    return shapesQuestions.filter((q) => q.id.startsWith('sh-2'));
+  }
+  if (levelId === 'level-3') {
+    return shapesQuestions.filter((q) => q.id.startsWith('sh-3'));
+  }
+  return [];
+};

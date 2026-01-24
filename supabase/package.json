@@ -1,0 +1,15 @@
+{
+  "name": "planet-education-edge-functions",
+  "version": "1.0.0",
+  "description": "Supabase Edge Functions for Planet Education AI Services",
+  "scripts": {
+    "dev": "supabase functions serve",
+    "deploy": "supabase functions deploy",
+    "deploy:ai-service": "supabase functions deploy ai-service",
+    "deploy:recommendations": "supabase functions deploy recommendations",
+    "logs": "supabase functions logs"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.57.4"
+  }
+}

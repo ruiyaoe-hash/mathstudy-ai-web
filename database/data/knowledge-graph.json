@@ -1,0 +1,206 @@
+[
+  {
+    "grade": 4,
+    "modules": [
+      {
+        "id": "number_algebra",
+        "name": "数与运算",
+        "knowledgeNodes": [
+          {
+            "id": "g4-n1",
+            "name": "大数的认识（万以内数）",
+            "prerequisites": [],
+            "difficulty": 2,
+            "skillDimension": ["理解"],
+            "masteryLevels": [0,1,2,3,4],
+            "keyConcepts": ["数位","计数单位","大小比较"],
+            "learningObjectives": ["能正确读写万以内数","理解数位意义","准确比较大小"],
+            "is_core": true
+          },
+          {
+            "id": "g4-n2",
+            "name": "三位数加减法（含进退位）",
+            "prerequisites": ["g4-n1"],
+            "difficulty": 2,
+            "skillDimension": ["计算","理解"],
+            "keyConcepts": ["进位","退位","竖式"],
+            "learningObjectives": ["正确进行竖式加减","理解进退位原理"],
+            "is_core": true
+          },
+          {
+            "id": "g4-n3",
+            "name": "三位数乘两位数",
+            "prerequisites": ["g4-n2"],
+            "difficulty": 3,
+            "skillDimension": ["计算","建模"],
+            "keyConcepts": ["分配律","竖式","部分积"],
+            "learningObjectives": ["掌握标准竖式算法","能建立乘法模型"],
+            "is_core": true
+          },
+          {
+            "id": "g4-n4",
+            "name": "除数是两位数的除法",
+            "prerequisites": ["g4-n3"],
+            "difficulty": 3,
+            "skillDimension": ["计算","理解"],
+            "keyConcepts": ["试商","商位","余数"],
+            "learningObjectives": ["会正确试商","理解余数意义"],
+            "is_core": true
+          },
+          {
+            "id": "g4-n5",
+            "name": "四则混合运算（含括号）",
+            "prerequisites": ["g4-n3","g4-n4"],
+            "difficulty": 3,
+            "skillDimension": ["推理","计算"],
+            "keyConcepts": ["运算顺序","括号"],
+            "learningObjectives": ["掌握运算顺序","能正确计算表达式"],
+            "is_core": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "grade": 5,
+    "modules": [
+      {
+        "id": "number_algebra",
+        "name": "数与代数",
+        "knowledgeNodes": [
+          {
+            "id": "g5-n1",
+            "name": "分数的意义与性质",
+            "prerequisites": [],
+            "difficulty": 3,
+            "skillDimension": ["理解","建模"],
+            "keyConcepts": ["整体","分子分母","等值分数"],
+            "learningObjectives": ["理解分数意义","能判断等值分数"],
+            "is_core": true
+          },
+          {
+            "id": "g5-n2",
+            "name": "分数加减法（含异分母）",
+            "prerequisites": ["g5-n1"],
+            "difficulty": 3,
+            "skillDimension": ["计算","理解"],
+            "keyConcepts": ["通分","最小公倍数"],
+            "learningObjectives": ["会正确通分","能进行分数加减"],
+            "is_core": true
+          },
+          {
+            "id": "g5-n3",
+            "name": "小数的意义与性质",
+            "prerequisites": [],
+            "difficulty": 3,
+            "skillDimension": ["理解"],
+            "keyConcepts": ["十分位","百分位","位值"],
+            "learningObjectives": ["理解小数位值","能读写小数"],
+            "is_core": true
+          },
+          {
+            "id": "g5-n4",
+            "name": "小数加减法",
+            "prerequisites": ["g5-n3"],
+            "difficulty": 3,
+            "skillDimension": ["计算"],
+            "keyConcepts": ["小数点对齐","进退位"],
+            "learningObjectives": ["会正确对齐小数点","准确计算"],
+            "is_core": true
+          },
+          {
+            "id": "g5-n5",
+            "name": "小数乘除法",
+            "prerequisites": ["g5-n4"],
+            "difficulty": 4,
+            "skillDimension": ["计算","推理"],
+            "keyConcepts": ["位数移动","积商定位"],
+            "learningObjectives": ["掌握小数乘除法规则"],
+            "is_core": true
+          },
+          {
+            "id": "g5-n6",
+            "name": "因数与倍数（含质数合数）",
+            "prerequisites": [],
+            "difficulty": 3,
+            "skillDimension": ["理解","推理"],
+            "keyConcepts": ["倍数","因数","质数","合数"],
+            "learningObjectives": ["能分解因数","判断质合数"],
+            "is_core": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "grade": 6,
+    "modules": [
+      {
+        "id": "ratio_percent",
+        "name": "比例与百分数",
+        "knowledgeNodes": [
+          {
+            "id": "g6-n1",
+            "name": "分数的乘除法",
+            "prerequisites": ["g5-n2"],
+            "difficulty": 3,
+            "skillDimension": ["计算","建模"],
+            "keyConcepts": ["倒数","约分","乘除转化"],
+            "learningObjectives": ["掌握分数乘除法","能进行约分化简"],
+            "is_core": true
+          },
+          {
+            "id": "g6-n2",
+            "name": "百分数的意义与互化",
+            "prerequisites": ["g6-n1"],
+            "difficulty": 3,
+            "skillDimension": ["理解","建模"],
+            "keyConcepts": ["百分比","分数小数互化"],
+            "learningObjectives": ["理解百分数意义","能互化表示"],
+            "is_core": true
+          },
+          {
+            "id": "g6-n3",
+            "name": "百分数应用（折扣、增长率）",
+            "prerequisites": ["g6-n2"],
+            "difficulty": 4,
+            "skillDimension": ["建模","推理"],
+            "keyConcepts": ["基数","现值","变化率"],
+            "learningObjectives": ["会建立百分数应用模型"],
+            "is_core": true
+          },
+          {
+            "id": "g6-n4",
+            "name": "比与比例",
+            "prerequisites": ["g6-n2"],
+            "difficulty": 4,
+            "skillDimension": ["推理","建模"],
+            "keyConcepts": ["比值","比例式","交叉相乘"],
+            "learningObjectives": ["会化简比","能解比例问题"],
+            "is_core": true
+          },
+          {
+            "id": "g6-n5",
+            "name": "圆的认识与面积",
+            "prerequisites": [],
+            "difficulty": 4,
+            "skillDimension": ["理解","计算"],
+            "keyConcepts": ["半径","直径","π","面积公式"],
+            "learningObjectives": ["掌握圆面积计算"],
+            "is_core": true
+          },
+          {
+            "id": "g6-n6",
+            "name": "统计与扇形统计图",
+            "prerequisites": ["g6-n2"],
+            "difficulty": 3,
+            "skillDimension": ["理解","分析"],
+            "keyConcepts": ["比例","扇形","数据分析"],
+            "learningObjectives": ["能解读扇形统计图"],
+            "is_core": true
+          }
+        ]
+      }
+    ]
+  }
+]

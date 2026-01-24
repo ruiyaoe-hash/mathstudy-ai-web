@@ -1,0 +1,60 @@
+
+-- 用户资料表
+CREATE TABLE profiles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  avatar TEXT NOT NULL DEFAULT '1',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  last_active_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- 游戏进度表
+CREATE TABLE game_progress (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  coins INTEGER NOT NULL DEFAULT 0,
+  total_stars INTEGER NOT NULL DEFAULT 0,
+  total_correct INTEGER NOT NULL DEFAULT 0,
+  total_questions INTEGER NOT NULL DEFAULT 0,
+  current_streak INTEGER NOT NULL DEFAULT 0,
+  best_streak INTEGER NOT NULL DEFAULT 0,
+  planets_data JSONB NOT NULL DEFAULT '{}',
+  achievements TEXT[] NOT NULL DEFAULT '{}',
+  mistakes JSONB NOT NULL DEFAULT '[]',
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE(profile_id)
+);
+
+-- 启用 RLS
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE game_progress ENABLE ROW LEVEL SECURITY;
+
+-- 允许匿名用户读写（因为这是一个儿童学习应用，不需要登录）
+CREATE POLICY "Allow all access to profiles" ON profiles FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all access to game_progress" ON game_progress FOR ALL USING (true) WITH CHECK (true);
+
+-- 创建索引
+CREATE INDEX idx_game_progress_profile_id ON game_progress(profile_id);
+CREATE INDEX idx_game_progress_total_stars ON game_progress(total_stars DESC);
+CREATE INDEX idx_profiles_last_active ON profiles(last_active_at DESC);
+
+-- 创建排行榜视图
+CREATE VIEW leaderboard AS
+SELECT 
+  p.id,
+  p.name,
+  p.avatar,
+  COALESCE(g.total_stars, 0) as total_stars,
+  COALESCE(g.coins, 0) as coins,
+  COALESCE(g.total_correct, 0) as total_correct,
+  COALESCE(g.total_questions, 0) as total_questions,
+  COALESCE(g.best_streak, 0) as best_streak,
+  COALESCE(array_length(g.achievements, 1), 0) as achievement_count,
+  CASE WHEN g.total_questions > 0 
+    THEN ROUND((g.total_correct::numeric / g.total_questions::numeric) * 100, 1)
+    ELSE 0 
+  END as accuracy,
+  p.last_active_at
+FROM profiles p
+LEFT JOIN game_progress g ON p.id = g.profile_id
+ORDER BY total_stars DESC, coins DESC;

@@ -1,0 +1,227 @@
+import { Question } from '@/types/game';
+
+export const anglesQuestions: Question[] = [
+  // Level 1 - 认识角
+  {
+    id: 'ag-1-1',
+    type: 'choice',
+    question: '角是由什么组成的？',
+    options: ['一个顶点和一条边', '一个顶点和两条边', '两个顶点和一条边', '两个顶点和两条边'],
+    answer: 1,
+    explanation: '角是由一个顶点和从这个顶点引出的两条射线（边）组成的',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-1-2',
+    type: 'choice',
+    question: '角的大小与什么有关？',
+    options: ['边的长短', '两边张开的大小', '顶点的位置', '边的粗细'],
+    answer: 1,
+    explanation: '角的大小与两边张开的大小有关，与边的长短无关',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-1-3',
+    type: 'choice',
+    question: '测量角的单位是：',
+    options: ['米', '度', '千克', '秒'],
+    answer: 1,
+    explanation: '测量角的单位是度，用符号"°"表示',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-1-4',
+    type: 'fill',
+    question: '1直角等于______度',
+    answer: '90',
+    explanation: '直角是90度',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-1-5',
+    type: 'choice',
+    question: '钟表上3点整时，时针和分针形成的角是：',
+    options: ['锐角', '直角', '钝角', '平角'],
+    answer: 1,
+    explanation: '3点整时，时针指向3，分针指向12，相差3格，每格30°，共90°，是直角',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-1-6',
+    type: 'choice',
+    question: '下面哪个时刻时针和分针形成的角最大？',
+    options: ['3点', '6点', '9点', '12点'],
+    answer: 1,
+    explanation: '6点时时针和分针成180°平角，是最大的',
+    difficulty: 2,
+  },
+  {
+    id: 'ag-1-7',
+    type: 'fill',
+    question: '一个周角等于______度',
+    answer: '360',
+    explanation: '一个周角是360度',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-1-8',
+    type: 'choice',
+    question: '用量角器量角时，要把量角器的什么与角的顶点重合？',
+    options: ['0°刻度线', '中心点', '90°刻度线', '边缘'],
+    answer: 1,
+    explanation: '量角时要把量角器的中心点与角的顶点重合',
+    difficulty: 1,
+  },
+  // Level 2 - 角的分类
+  {
+    id: 'ag-2-1',
+    type: 'choice',
+    question: '锐角的范围是：',
+    options: ['大于0°小于90°', '等于90°', '大于90°小于180°', '等于180°'],
+    answer: 0,
+    explanation: '锐角是大于0°且小于90°的角',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-2-2',
+    type: 'choice',
+    question: '135°的角是：',
+    options: ['锐角', '直角', '钝角', '平角'],
+    answer: 2,
+    explanation: '135°大于90°小于180°，所以是钝角',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-2-3',
+    type: 'fill',
+    question: '平角等于______个直角',
+    answer: '2',
+    explanation: '平角是180°，直角是90°，180÷90=2个直角',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-2-4',
+    type: 'choice',
+    question: '周角等于几个直角？',
+    options: ['2个', '3个', '4个', '5个'],
+    answer: 2,
+    explanation: '周角是360°，直角是90°，360÷90=4个直角',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-2-5',
+    type: 'choice',
+    question: '下列角度中，是钝角的是：',
+    options: ['45°', '90°', '120°', '180°'],
+    answer: 2,
+    explanation: '钝角大于90°小于180°，只有120°符合',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-2-6',
+    type: 'choice',
+    question: '一个角是89°，这个角是：',
+    options: ['锐角', '直角', '钝角', '平角'],
+    answer: 0,
+    explanation: '89°小于90°，所以是锐角',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-2-7',
+    type: 'fill',
+    question: '一个钝角至少比直角大______度',
+    answer: '1',
+    explanation: '钝角大于90°，最小的钝角是91°，比直角大1°',
+    difficulty: 2,
+  },
+  {
+    id: 'ag-2-8',
+    type: 'choice',
+    question: '两个锐角的和：',
+    options: ['一定是锐角', '一定是直角', '一定是钝角', '可能是锐角、直角或钝角'],
+    answer: 3,
+    explanation: '两个锐角的和可以是：30°+40°=70°(锐角)，45°+45°=90°(直角)，60°+80°=140°(钝角)',
+    difficulty: 2,
+  },
+  // Level 3 - 角度计算
+  {
+    id: 'ag-3-1',
+    type: 'fill',
+    question: '一个角是35°，它的余角（与它加起来等于90°的角）是______度',
+    answer: '55',
+    explanation: '两个角相加等于90°称为互余，所以余角=90°-35°=55°',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-3-2',
+    type: 'fill',
+    question: '钟表上4点整，时针和分针形成的角是______度',
+    answer: '120',
+    explanation: '4点时相差4格，每格30°，共4×30°=120°',
+    difficulty: 2,
+  },
+  {
+    id: 'ag-3-3',
+    type: 'choice',
+    question: '把一个平角分成两个角，其中一个是50°，另一个是：',
+    options: ['40°', '50°', '130°', '140°'],
+    answer: 2,
+    explanation: '平角是180°，180°-50°=130°',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-3-4',
+    type: 'fill',
+    question: '钟表上6点整，时针和分针形成的角是______度',
+    answer: '180',
+    explanation: '6点时时针指向6，分针指向12，正好形成一条直线，是180°平角',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-3-5',
+    type: 'choice',
+    question: '一个周角减去一个直角等于：',
+    options: ['180°', '270°', '90°', '360°'],
+    answer: 1,
+    explanation: '周角360°-直角90°=270°',
+    difficulty: 2,
+  },
+  {
+    id: 'ag-3-6',
+    type: 'fill',
+    question: '两条直线相交，形成4个角，其中一个角是60°，与它相对的角是______度',
+    answer: '60',
+    explanation: '两条直线相交，对顶角相等，所以相对的角也是60°',
+    difficulty: 2,
+  },
+  {
+    id: 'ag-3-7',
+    type: 'choice',
+    question: '三角形三个内角的和是：',
+    options: ['90°', '180°', '270°', '360°'],
+    answer: 1,
+    explanation: '三角形内角和是180°',
+    difficulty: 1,
+  },
+  {
+    id: 'ag-3-8',
+    type: 'fill',
+    question: '一个三角形有两个角分别是45°和75°，第三个角是______度',
+    answer: '60',
+    explanation: '180°-45°-75°=60°',
+    difficulty: 2,
+  },
+];
+
+export const getAnglesQuestions = (levelId: string): Question[] => {
+  if (levelId === 'level-1') {
+    return anglesQuestions.filter((q) => q.id.startsWith('ag-1'));
+  }
+  if (levelId === 'level-2') {
+    return anglesQuestions.filter((q) => q.id.startsWith('ag-2'));
+  }
+  if (levelId === 'level-3') {
+    return anglesQuestions.filter((q) => q.id.startsWith('ag-3'));
+  }
+  return [];
+};

@@ -1,0 +1,228 @@
+import { Question } from '@/types/game';
+
+export const bigNumbersQuestions: Question[] = [
+  // Level 1 - 认识大数
+  {
+    id: 'bn-1-1',
+    type: 'choice',
+    question: '下面哪个数读作"三千零五万零二十"？',
+    options: ['30050020', '3005020', '30500020', '3050020'],
+    answer: 0,
+    explanation: '三千零五万 = 30050000，再加上零二十 = 30050020',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-1-2',
+    type: 'choice',
+    question: '10000000读作：',
+    options: ['一百万', '一千万', '一亿', '十万'],
+    answer: 1,
+    explanation: '10000000有7个0，是一千万',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-1-3',
+    type: 'fill',
+    question: '八百零三万零五十写作______',
+    answer: '8030050',
+    explanation: '八百零三万 = 8030000，零五十 = 50，合起来是8030050',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-1-4',
+    type: 'choice',
+    question: '由5个千万、3个万和8个一组成的数是：',
+    options: ['50030008', '5030008', '53000008', '50300008'],
+    answer: 0,
+    explanation: '5个千万=50000000，3个万=30000，8个一=8，合起来是50030008',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-1-5',
+    type: 'choice',
+    question: '一个数的最高位是千万位，这个数是几位数？',
+    options: ['六位数', '七位数', '八位数', '九位数'],
+    answer: 2,
+    explanation: '千万位是第8位，所以最高位是千万位的数是八位数',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-1-6',
+    type: 'fill',
+    question: '5060070读作______',
+    answer: '五百零六万零七十',
+    explanation: '5060070 = 506万0070 = 五百零六万零七十',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-1-7',
+    type: 'choice',
+    question: '下列各数中，一个零也不读的是：',
+    options: ['3040000', '3004000', '3000400', '3000040'],
+    answer: 0,
+    explanation: '3040000读作三百零四万，万级末尾的0不读，但304中间的0要读',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-1-8',
+    type: 'fill',
+    question: '四千零五十万写作______',
+    answer: '40500000',
+    explanation: '四千零五十万 = 4050×10000 = 40500000',
+    difficulty: 1,
+  },
+  // Level 2 - 数位挑战
+  {
+    id: 'bn-2-1',
+    type: 'choice',
+    question: '在35680000中，5在什么数位上？',
+    options: ['百万位', '千万位', '十万位', '万位'],
+    answer: 0,
+    explanation: '从右往左数，5在第7位，是百万位',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-2-2',
+    type: 'choice',
+    question: '10个一百万是：',
+    options: ['一百万', '一千万', '一亿', '十亿'],
+    answer: 1,
+    explanation: '10×1000000 = 10000000 = 一千万',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-2-3',
+    type: 'fill',
+    question: '6个亿、8个百万、5个万组成的数是______',
+    answer: '608050000',
+    explanation: '6亿=600000000，8百万=8000000，5万=50000，合起来608050000',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-2-4',
+    type: 'choice',
+    question: '一亿里面有多少个一万？',
+    options: ['100个', '1000个', '10000个', '100000个'],
+    answer: 2,
+    explanation: '100000000 ÷ 10000 = 10000个',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-2-5',
+    type: 'choice',
+    question: '把78000000改写成用"万"作单位的数是：',
+    options: ['780万', '7800万', '78万', '78000万'],
+    answer: 1,
+    explanation: '78000000 = 7800×10000 = 7800万',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-2-6',
+    type: 'fill',
+    question: '3000000000读作______',
+    answer: '三十亿',
+    explanation: '3000000000有10位数，等于30亿，读作三十亿',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-2-7',
+    type: 'choice',
+    question: '下面哪个数最接近一亿？',
+    options: ['9000000', '99000000', '100100000', '9999999'],
+    answer: 1,
+    explanation: '99000000最接近100000000（一亿）',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-2-8',
+    type: 'fill',
+    question: '54000000省略万位后面的尾数约是______万',
+    answer: '5400',
+    explanation: '54000000 = 5400万，万位后面是0，所以约等于5400万',
+    difficulty: 1,
+  },
+  // Level 3 - 比较大小
+  {
+    id: 'bn-3-1',
+    type: 'choice',
+    question: '比较大小：56780000___56870000',
+    options: ['>', '<', '=', '无法比较'],
+    answer: 1,
+    explanation: '这两个数都是8位数，从最高位开始比，567<568，所以56780000<56870000',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-3-2',
+    type: 'choice',
+    question: '下列各数中，最大的是：',
+    options: ['9999999', '10000001', '10000000', '9999998'],
+    answer: 1,
+    explanation: '10000001是8位数，其他都是7位数，位数多的数大',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-3-3',
+    type: 'choice',
+    question: '把3654000四舍五入到万位约是：',
+    options: ['365万', '366万', '370万', '360万'],
+    answer: 1,
+    explanation: '3654000，千位是4，四舍五入后约等于366万',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-3-4',
+    type: 'fill',
+    question: '将下列数按从小到大排列：78000000、7890000、78900000，结果是______',
+    answer: '7890000<78000000<78900000',
+    explanation: '7890000是7位数，78000000和78900000是8位数，比较8位数：780<789',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-3-5',
+    type: 'choice',
+    question: '4□560000≈45560000，□里可以填：',
+    options: ['只能填5', '0~4', '5~9', '0~9'],
+    answer: 0,
+    explanation: '4□560000四舍五入到万位，千位是0，应该四舍，所以□=5，才能得到45560000',
+    difficulty: 3,
+  },
+  {
+    id: 'bn-3-6',
+    type: 'choice',
+    question: '9亿比8亿9999万9999多：',
+    options: ['1', '10', '100', '1000'],
+    answer: 0,
+    explanation: '900000000 - 899999999 = 1',
+    difficulty: 2,
+  },
+  {
+    id: 'bn-3-7',
+    type: 'fill',
+    question: '最大的七位数是______',
+    answer: '9999999',
+    explanation: '七位数最大是每位都是9，即9999999',
+    difficulty: 1,
+  },
+  {
+    id: 'bn-3-8',
+    type: 'choice',
+    question: '最小的八位数比最大的七位数多：',
+    options: ['1', '10', '100', '1000'],
+    answer: 0,
+    explanation: '最小八位数是10000000，最大七位数是9999999，相差1',
+    difficulty: 2,
+  },
+];
+
+export const getBigNumbersQuestions = (levelId: string): Question[] => {
+  if (levelId === 'level-1') {
+    return bigNumbersQuestions.filter((q) => q.id.startsWith('bn-1'));
+  }
+  if (levelId === 'level-2') {
+    return bigNumbersQuestions.filter((q) => q.id.startsWith('bn-2'));
+  }
+  if (levelId === 'level-3') {
+    return bigNumbersQuestions.filter((q) => q.id.startsWith('bn-3'));
+  }
+  return [];
+};

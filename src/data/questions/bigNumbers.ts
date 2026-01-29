@@ -59,8 +59,8 @@ export const bigNumbersQuestions: Question[] = [
     type: 'choice',
     question: '下列各数中，一个零也不读的是：',
     options: ['3040000', '3004000', '3000400', '3000040'],
-    answer: 0,
-    explanation: '3040000读作三百零四万，万级末尾的0不读，但304中间的0要读',
+    answer: 1,
+    explanation: '3004000读作三百万四千，一个零也不读；3040000读作三百零四万，读一个零',
     difficulty: 2,
   },
   {
@@ -165,8 +165,8 @@ export const bigNumbersQuestions: Question[] = [
     type: 'choice',
     question: '把3654000四舍五入到万位约是：',
     options: ['365万', '366万', '370万', '360万'],
-    answer: 1,
-    explanation: '3654000，千位是4，四舍五入后约等于366万',
+    answer: 0,
+    explanation: '3654000，千位是4，四舍五入后约等于365万',
     difficulty: 2,
   },
   {

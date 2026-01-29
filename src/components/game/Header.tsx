@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, Star, Coins, Trophy, LogOut, Rocket, Heart, Zap, Flame, Sparkles, Shield } from 'lucide-react';
+import { useState } from 'react';
+import { ChevronLeft, Star, Coins, LogOut, Rocket, Heart, Zap, Flame, Sparkles, Shield, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getCurrentUser, logoutUser } from '@/utils/userStorage';
 import { avatarOptions } from '@/types/user';
@@ -11,6 +12,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { toast } from '@/components/ui/use-toast';
 
 // 图标映射
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
@@ -41,10 +52,30 @@ export const Header = ({
 }: HeaderProps) => {
   const navigate = useNavigate();
   const currentUser = getCurrentUser();
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
-    await logoutUser();
-    navigate('/select-user', { replace: true });
+    setShowLogoutDialog(true);
+  };
+
+  const confirmLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logoutUser();
+      toast({ title: '成功', description: '已成功退出登录' });
+      navigate('/select-user', { replace: true });
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast({ variant: 'destructive', title: '错误', description: '退出登录失败，请重试' });
+    } finally {
+      setIsLoggingOut(false);
+      setShowLogoutDialog(false);
+    }
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutDialog(false);
   };
 
   const getAvatarIcon = (avatarId: string) => {
@@ -94,15 +125,55 @@ export const Header = ({
           )}
 
           {showAchievements && (
-            <Link to="/achievements" className="hidden sm:block">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full hover:bg-secondary w-9 h-9 sm:w-10 sm:h-10"
-              >
-                <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-              </Button>
-            </Link>
+            <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
+              <DialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={isLoggingOut}
+                  className="hidden sm:block rounded-full hover:bg-secondary w-9 h-9 sm:w-10 sm:h-10"
+                >
+                  {isLoggingOut ? (
+                    <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary animate-spin" />
+                  ) : (
+                    <LogOut className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  )}
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-gray-900 border-gray-700">
+                <DialogHeader>
+                  <DialogTitle className="text-white">确认退出</DialogTitle>
+                  <DialogDescription className="text-gray-400">
+                    您确定要退出登录吗？
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button
+                    variant="outline"
+                    onClick={cancelLogout}
+                    disabled={isLoggingOut}
+                    className="border-gray-600 text-white hover:bg-gray-800"
+                  >
+                    取消
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={confirmLogout}
+                    disabled={isLoggingOut}
+                    className="bg-red-600 hover:bg-red-700"
+                  >
+                    {isLoggingOut ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                        退出中...
+                      </>
+                    ) : (
+                      '确认退出'
+                    )}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           )}
 
           {showUser && currentUser && (
@@ -131,7 +202,7 @@ export const Header = ({
                 <DropdownMenuItem asChild>
                   <button onClick={(e) => {
                     e.preventDefault();
-                    handleLogout();
+                    setShowLogoutDialog(true);
                   }} className="w-full cursor-pointer text-destructive flex items-center px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-destructive">
                     <LogOut className="w-4 h-4 mr-2" />
                     退出

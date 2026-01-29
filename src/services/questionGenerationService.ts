@@ -6,7 +6,7 @@
 import { LLMClient, Config } from 'coze-coding-dev-sdk';
 import { createPromptManager } from '@/ai/templates';
 import { knowledgeGraphService, KnowledgeNode } from '@/services/knowledgeGraphService';
-import { cacheManager } from '@/ai/cost-control/cache';
+import { aiCache } from '@/ai/cost-control/cache';
 import { costMonitor } from '@/ai/cost-control/monitor';
 
 /**
@@ -115,7 +115,7 @@ export class QuestionGenerationService {
 
     // 2. 检查缓存
     const cacheKey = this.getCacheKey(request);
-    const cached = await cacheManager.get(cacheKey);
+    const cached = await aiCache.get(cacheKey);
     if (cached) {
       const response = JSON.parse(cached);
       yield "正在加载缓存的题目...";
@@ -156,7 +156,7 @@ export class QuestionGenerationService {
       const response = this.parseQuestionsResponse(fullContent, request, node);
 
       // 7. 缓存结果
-      await cacheManager.set(cacheKey, JSON.stringify(response));
+      await aiCache.set(cacheKey, JSON.stringify(response));
 
       // 8. 记录成本
       await costMonitor.recordUsage('question_generation', {
@@ -186,7 +186,7 @@ export class QuestionGenerationService {
     const topic = node.name;
 
     const cacheKey = this.getCacheKey(request);
-    const cached = await cacheManager.get(cacheKey);
+    const cached = await aiCache.get(cacheKey);
     if (cached) {
       return JSON.parse(cached);
     }
@@ -207,34 +207,7 @@ export class QuestionGenerationService {
     });
 
     const result = this.parseQuestionsResponse(response.content, request, node);
-    await cacheManager.set(cacheKey, JSON.stringify(result));
-
-    await costMonitor.recordUsage('question_generation', {
-      tokens: response.content.length,
-      provider: 'doubao',
-      model: 'doubao-seed-1-8-251228'
-    });
-
-    return result;
-  }
-
-    const promptManager = this.getPromptManager(grade);
-    const prompt = promptManager.getQuestionTemplate(request.questionType, topic);
-
-    const messages = [
-      { role: 'system', content: '你是一个专业的数学老师，擅长生成适合学生的练习题。' },
-      { role: 'user', content: prompt }
-    ];
-
-    const response = await this.llmClient.invoke(messages, {
-      model: 'doubao-seed-1-8-251228',
-      temperature: 0.7,
-      thinking: 'disabled',
-      caching: 'enabled',
-    });
-
-    const result = this.parseQuestionsResponse(response.content, request, node);
-    await cacheManager.set(cacheKey, JSON.stringify(result));
+    await aiCache.set(cacheKey, JSON.stringify(result));
 
     await costMonitor.recordUsage('question_generation', {
       tokens: response.content.length,

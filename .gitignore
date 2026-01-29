@@ -1,20 +1,22 @@
 # 环境变量文件（包含敏感信息）
+# 忽略实际环境变量文件
 .env
 .env.local
 .env.*.local
+.env.development
+.env.production
+.env.test
 server/.env
-supabase/.env
+
+# 允许提交模板文件
+!.env.example
+!.env.template
 
 # 依赖
 node_modules/
 server/node_modules/
-supabase/node_modules/
 .pnpm-store/
-package-lock.json
-
-
-# Supabase
-.supabase/
+# package-lock.json # 保留package-lock.json用于依赖版本锁定
 
 # 构建输出
 dist/
@@ -30,8 +32,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-app.log
-dev.log
 
 # 编辑器
 .vscode/*

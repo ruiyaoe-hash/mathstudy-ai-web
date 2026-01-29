@@ -9,6 +9,7 @@ import Leaderboard from "./pages/Leaderboard";
 import Admin from "./pages/Admin";
 import KnowledgeGraph from "./pages/KnowledgeGraph";
 import DataManagement from "./pages/DataManagement";
+import AIHelper from "./pages/AIHelper";
 import NotFound from "./pages/NotFound";
 import { AuthRoute, AdminRoute } from "./components/auth/ProtectedRoute";
 
@@ -57,6 +58,11 @@ export const routers = [
       path: "/knowledge-graph",
       name: 'knowledgeGraph',
       element: <AuthRoute><KnowledgeGraph /></AuthRoute>,
+    },
+    {
+      path: "/ai-helper",
+      name: 'aiHelper',
+      element: <AuthRoute><AIHelper /></AuthRoute>,
     },
     {
       path: "/data-management",

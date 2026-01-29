@@ -5,7 +5,7 @@ import { PlanetCard } from '@/components/game/PlanetCard';
 import { useGameProgress } from '@/hooks/useGameProgress';
 import { planets } from '@/data/planets';
 import { loadCurrentUser, setCurrentUserCache } from '@/utils/userStorage';
-import { BookOpen, Trophy, Zap, Target, TrendingUp, Sparkles, Crown, Network } from 'lucide-react';
+import { BookOpen, Trophy, Zap, Target, TrendingUp, Sparkles, Crown, Network, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -134,7 +134,7 @@ const Index = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 animate-slide-up stagger-2">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 animate-slide-up stagger-2">
           <Link to="/knowledge-graph">
             <Button
               variant="outline"
@@ -186,6 +186,18 @@ const Index = () => {
             >
               <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <span className="text-tiny sm:text-caption">成就</span>
+            </Button>
+          </Link>
+          <Link to="/ai-helper">
+            <Button
+              variant="outline"
+              className={cn(
+                'w-full h-14 sm:h-16 rounded-xl sm:rounded-2xl border-purple-500/30 hover:bg-purple-500/10',
+                'transition-all duration-300 active:scale-95 flex-col gap-0.5 sm:gap-1 touch-target'
+              )}
+            >
+              <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+              <span className="text-tiny sm:text-caption">AI助手</span>
             </Button>
           </Link>
         </div>

@@ -1,93 +1,63 @@
 @echo off
-REM Supabase Edge Functions 部署脚本 (Windows)
 
-echo ==========================================
-echo   Supabase Edge Functions 部署
-echo ==========================================
-echo.
+REM 部署 Edge Functions 到 Supabase
 
-REM 检查Supabase CLI
-echo [1/5] 检查 Supabase CLI...
-where supabase >nul
+echo 开始部署 Edge Functions 到 Supabase...
+
+REM 检查是否安装了 supabase CLI
+where supabase >nul 2>nul
 if %errorlevel% neq 0 (
-    echo [ERROR] Supabase CLI 未安装
-    echo 请安装: pnpm add -g supabase
+    echo 错误: supabase CLI 未安装
+    echo 请按照 https://supabase.com/docs/guides/cli/getting-started 的说明安装
     pause
     exit /b 1
 )
-echo [OK] Supabase CLI 已安装
 
-REM 检查是否已登录
-echo.
-echo [2/5] 检查登录状态...
-supabase status >nul 2>&1
+REM 进入 supabase 目录
+cd /d "%~dp0\supabase"
 if %errorlevel% neq 0 (
-    echo [WARNING] 未登录或未初始化
-    set /p login="是否登录 Supabase? (y/n): "
-    if /i "%login%"=="y" (
-        supabase login
-    ) else (
-        echo [ERROR] 需要登录才能部署
-        pause
-        exit /b 1
-    )
-)
-echo [OK] 已登录
-
-REM 检查Functions目录
-echo.
-echo [3/5] 检查 Functions 目录...
-if not exist "supabase\functions" (
-    echo [ERROR] supabase\functions 目录不存在
+    echo 错误: 无法进入 supabase 目录
     pause
     exit /b 1
 )
-echo [OK] Functions 目录存在
 
-REM 列出所有functions
-echo.
-echo [4/5] 准备部署...
-dir /B "supabase\functions"
-echo.
-
-REM 确认部署
-set /p confirm="是否部署所有 Functions? (y/n): "
-if /i not "%confirm%"=="y" (
-    echo 部署取消
+REM 登录到 Supabase
+echo 正在登录到 Supabase...
+supabase login
+if %errorlevel% neq 0 (
+    echo 错误: 登录失败
     pause
-    exit /b 0
+    exit /b 1
 )
 
-REM 部署Functions
-echo.
-echo [5/5] 部署 Functions...
-echo.
-
-for /D %%f in (supabase\functions\*) do (
-    echo 部署 %%~nxf...
-    supabase functions deploy %%~nxf --no-verify-jwt
-    if %errorlevel% equ 0 (
-        echo [OK] %%~nxf 部署成功
-    ) else (
-        echo [ERROR] %%~nxf 部署失败
-    )
-    echo.
+REM 部署 Edge Functions
+echo 部署 AI 服务 Edge Function...
+supabase functions deploy ai-service
+if %errorlevel% neq 0 (
+    echo 错误: 部署失败
+    pause
+    exit /b 1
 )
 
-echo ==========================================
-echo 部署完成！
+REM 部署完成
 echo.
-echo 下一步：
-echo 1. 在 Supabase 控制台配置 Secrets:
-echo    COZE_API_KEY=your_api_key
-echo    COZE_BASE_URL=https://api.coze.com
-echo    COZE_MODEL_BASE_URL=https://model.coze.com
+echo ✅ Edge Functions 部署完成!
 echo.
-echo 2. 测试 Functions:
-echo    curl https://your-project-ref.supabase.co/functions/v1/ai-service?action=health
+echo 部署信息:
+echo - AI 服务: 已部署到 /functions/v1/ai-service
+echo - 支持的操作: generate-questions, solve-question, chat, explain-concept, analyze-mistake, learning-tips
+echo - 默认提供商: zhipu (智谱AI)
 echo.
-echo 3. 查看日志:
-echo    supabase functions logs ai-service
+echo 测试命令:
+echo   curl "https://your-project.supabase.co/functions/v1/ai-service?action=health&provider=zhipu" ^
+echo   -H "Authorization: Bearer your-anon-key"
 echo.
-
-pause
+echo 请在 Supabase 控制台中设置环境变量:
+echo - ZHIPU_API_KEY: 智谱AI API 密钥
+echo - COZE_API_KEY: Coze API 密钥 (可选)
+echo - SUPABASE_URL: Supabase 项目 URL
+echo - SUPABASE_SERVICE_ROLE_KEY: Supabase 服务角色密钥
+echo.
+echo 部署过程已完成!
+echo 按任意键退出...
+pause >nul

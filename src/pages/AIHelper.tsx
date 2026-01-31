@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Loader2, X } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
+import { aiService } from '@/services/aiService';
 
 const AIHelper = () => {
   const navigate = useNavigate();
@@ -54,20 +55,12 @@ const AIHelper = () => {
     setIsChatLoading(true);
 
     try {
-      const response = await fetch('/api/ai/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: chatInput }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to get AI response');
+      const response = await aiService.chat({ message: chatInput });
+      if (response.success) {
+        setChatMessages(prev => [...prev, { role: 'assistant', content: response.data.response }]);
+      } else {
+        throw new Error(response.error?.message || 'Failed to get AI response');
       }
-
-      const data = await response.json();
-      setChatMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
     } catch (error) {
       console.error('Chat error:', error);
       toast({ variant: 'destructive', title: 'Error', description: 'Failed to get AI response' });
@@ -82,20 +75,17 @@ const AIHelper = () => {
     setIsGeneratingQuestions(true);
 
     try {
-      const response = await fetch('/api/ai/generate-questions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ difficulty: questionDifficulty, subject: questionSubject }),
+      // 使用默认的 knowledgeId 进行题目生成
+      const response = await aiService.generateQuestions({
+        knowledgeId: 'default',
+        grade: 5,
+        count: 5,
+        questionType: '选择题'
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate questions');
-      }
-
-      const data = await response.json();
-      setGeneratedQuestions(data.questions);
+      
+      // 提取题目内容
+      const questions = response.questions.map((q: any) => q.question);
+      setGeneratedQuestions(questions);
       toast({ title: 'Success', description: 'Questions generated successfully' });
     } catch (error) {
       console.error('Question generation error:', error);
@@ -112,20 +102,16 @@ const AIHelper = () => {
     setIsSolving(true);
 
     try {
-      const response = await fetch('/api/ai/solve-question', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ question: problemInput }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to solve problem');
-      }
-
-      const data = await response.json();
-      setSolution(data.solution);
+      const response = await aiService.solveQuestion({ question: problemInput });
+      
+      // 构建解题步骤的文本表示
+      const solutionText = response.steps
+        .map((step: any, index: number) => {
+          return `${index + 1}. ${step.description}\n${step.expression ? `   ${step.expression}\n` : ''}   ${step.explanation}`;
+        })
+        .join('\n\n') + `\n\n最终答案: ${response.finalAnswer}`;
+      
+      setSolution(solutionText);
       toast({ title: 'Success', description: 'Problem solved successfully' });
     } catch (error) {
       console.error('Problem solving error:', error);
@@ -140,21 +126,24 @@ const AIHelper = () => {
     setIsGeneratingPath(true);
 
     try {
-      const response = await fetch('/api/ai/learning-path', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ subject: questionSubject }),
+      const response = await aiService.getLearningTips({
+        grade: 5,
+        subject: 'math'
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate learning path');
+      
+      if (response.success) {
+        // 构建学习路径的文本表示
+        const pathText = response.data.tips
+          .map((tip: any) => {
+            return `${tip.id}. ${tip.title}\n   ${tip.content}\n   重要性: ${tip.importance}/5\n   适用场景: ${tip.applicableSituation}`;
+          })
+          .join('\n\n');
+        
+        setLearningPath(pathText);
+        toast({ title: 'Success', description: 'Learning path generated successfully' });
+      } else {
+        throw new Error(response.error?.message || 'Failed to generate learning path');
       }
-
-      const data = await response.json();
-      setLearningPath(data.path);
-      toast({ title: 'Success', description: 'Learning path generated successfully' });
     } catch (error) {
       console.error('Learning path generation error:', error);
       toast({ variant: 'destructive', title: 'Error', description: 'Failed to generate learning path' });
@@ -170,21 +159,21 @@ const AIHelper = () => {
     setIsExplaining(true);
 
     try {
-      const response = await fetch('/api/ai/explain-concept', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ concept: conceptInput }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to explain concept');
+      const response = await aiService.explainConcept({ concept: conceptInput });
+      
+      if (response.success) {
+        // 构建概念解释的文本表示
+        const explanationText = `概念解释:\n${response.data.explanation}\n\n` +
+          (response.data.examples.length > 0 ? `例子:\n${response.data.examples.join('\n')}\n\n` : '') +
+          `应用场景:\n${response.data.applications}\n\n` +
+          `相关概念:\n${response.data.relatedConcepts}\n\n` +
+          `难度等级:\n${response.data.difficulty}`;
+        
+        setConceptExplanation(explanationText);
+        toast({ title: 'Success', description: 'Concept explained successfully' });
+      } else {
+        throw new Error(response.error?.message || 'Failed to explain concept');
       }
-
-      const data = await response.json();
-      setConceptExplanation(data.explanation);
-      toast({ title: 'Success', description: 'Concept explained successfully' });
     } catch (error) {
       console.error('Concept explanation error:', error);
       toast({ variant: 'destructive', title: 'Error', description: 'Failed to explain concept' });

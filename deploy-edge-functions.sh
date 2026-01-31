@@ -1,86 +1,50 @@
 #!/bin/bash
 
-# Supabase Edge Functions 部署脚本
+# 部署 Edge Functions 到 Supabase
 
-echo "🚀 Supabase Edge Functions 部署"
-echo "=================================="
+echo "开始部署 Edge Functions 到 Supabase..."
 
-# 颜色定义
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-
-# 检查Supabase CLI
-echo -e "\n${YELLOW}[1/5] 检查 Supabase CLI...${NC}"
+# 检查是否安装了 supabase  CLI
 if ! command -v supabase &> /dev/null; then
-    echo -e "${RED}❌ Supabase CLI 未安装${NC}"
-    echo "请安装: pnpm add -g supabase"
-    exit 1
-fi
-echo -e "${GREEN}✅ Supabase CLI 已安装${NC}"
-
-# 检查是否已登录
-echo -e "\n${YELLOW}[2/5] 检查登录状态...${NC}"
-if ! supabase status 2>/dev/null | grep -q "API URL"; then
-    echo -e "${YELLOW}⚠️  未登录或未初始化${NC}"
-    read -p "是否登录 Supabase? (y/n): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        supabase login
-    else
-        echo -e "${RED}❌ 需要登录才能部署${NC}"
-        exit 1
-    fi
-fi
-echo -e "${GREEN}✅ 已登录${NC}"
-
-# 检查Functions目录
-echo -e "\n${YELLOW}[3/5] 检查 Functions 目录...${NC}"
-if [ ! -d "supabase/functions" ]; then
-    echo -e "${RED}❌ supabase/functions 目录不存在${NC}"
+    echo "错误: supabase CLI 未安装"
+    echo "请按照 https://supabase.com/docs/guides/cli/getting-started 的说明安装"
     exit 1
 fi
 
-# 列出所有functions
-FUNCTIONS=$(ls -1 supabase/functions)
-echo -e "${GREEN}✅ 发现 Functions:${NC}"
-echo "$FUNCTIONS"
-
-# 确认部署
-echo -e "\n${YELLOW}[4/5] 准备部署...${NC}"
-read -p "是否部署所有 Functions? (y/n): " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "部署取消"
-    exit 0
+# 检查是否配置了 SUPABASE_URL 和 SUPABASE_ANON_KEY
+if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+    echo "警告: 环境变量 SUPABASE_URL 或 SUPABASE_ANON_KEY 未设置"
+    echo "将使用 supabase 配置文件中的默认值"
 fi
 
-# 部署Functions
-echo -e "\n${YELLOW}[5/5] 部署 Functions...${NC}"
-for func in $FUNCTIONS; do
-    echo -e "\n部署 ${func}..."
-    supabase functions deploy "$func" --no-verify-jwt
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✅ ${func} 部署成功${NC}"
-    else
-        echo -e "${RED}❌ ${func} 部署失败${NC}"
-    fi
-done
+# 进入 supabase 目录
+cd "$(dirname "$0")/supabase" || exit 1
 
-# 显示日志信息
-echo -e "\n${YELLOW}=================================="
-echo -e "${GREEN}部署完成！${NC}"
+# 登录到 Supabase
+echo "正在登录到 Supabase..."
+supabase login
+
+# 部署 Edge Functions
+echo "部署 AI 服务 Edge Function..."
+supabase functions deploy ai-service
+
+# 部署完成
 echo ""
-echo "下一步："
-echo "1. 在 Supabase 控制台配置 Secrets:"
-echo "   COZE_API_KEY=your_api_key"
-echo "   COZE_BASE_URL=https://api.coze.com"
-echo "   COZE_MODEL_BASE_URL=https://model.coze.com"
+echo "✅ Edge Functions 部署完成!"
 echo ""
-echo "2. 测试 Functions:"
-echo "   curl https://your-project-ref.supabase.co/functions/v1/ai-service?action=health"
+echo "部署信息:"
+echo "- AI 服务: 已部署到 /functions/v1/ai-service"
+echo "- 支持的操作: generate-questions, solve-question, chat, explain-concept, analyze-mistake, learning-tips"
+echo "- 默认提供商: zhipu (智谱AI)"
 echo ""
-echo "3. 查看日志:"
-echo "   supabase functions logs ai-service"
+echo "测试命令:"
+echo "  curl 'https://your-project.supabase.co/functions/v1/ai-service?action=health&provider=zhipu' \\
+  -H 'Authorization: Bearer your-anon-key'"
 echo ""
+echo "请在 Supabase 控制台中设置环境变量:"
+echo "- ZHIPU_API_KEY: 智谱AI API 密钥"
+echo "- COZE_API_KEY: Coze API 密钥 (可选)"
+echo "- SUPABASE_URL: Supabase 项目 URL"
+echo "- SUPABASE_SERVICE_ROLE_KEY: Supabase 服务角色密钥"
+echo ""
+echo "部署过程已完成!"

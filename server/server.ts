@@ -253,13 +253,64 @@ try {
   console.error('❌ ZhiPu AI Client 初始化失败:', error);
 }
 
-// 健康检查
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    llm: llmClient ? 'enabled' : 'disabled',
-    timestamp: new Date().toISOString()
-  });
+// 健康检查 - 增强版
+app.get('/health', async (req, res) => {
+  try {
+    // 检查智谱AI API状态
+    const apiKey = process.env.ZHIPU_API_KEY;
+    const llmStatus = apiKey ? 'enabled' : 'disabled';
+    
+    // 检查数据库连接
+    let dbStatus = 'ok';
+    try {
+      const { data } = await supabase
+        .from('knowledge_nodes')
+        .select('id')
+        .limit(1);
+    } catch (dbError) {
+      dbStatus = 'error';
+      console.error('数据库连接检查失败:', dbError);
+    }
+    
+    // 检查Supabase Edge Functions状态
+    let edgeFunctionsStatus = 'unknown';
+    try {
+      const supabaseUrl = process.env.VITE_SUPABASE_URL;
+      if (supabaseUrl) {
+        const edgeResponse = await fetch(
+          `${supabaseUrl}/functions/v1/ai-service?action=health&provider=zhipu`,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${process.env.VITE_SUPABASE_ANON_KEY}`
+            }
+          }
+        );
+        edgeFunctionsStatus = edgeResponse.ok ? 'enabled' : 'disabled';
+      }
+    } catch (edgeError) {
+      edgeFunctionsStatus = 'error';
+      console.error('Edge Functions检查失败:', edgeError);
+    }
+    
+    res.json({
+      status: 'ok',
+      services: {
+        llm: llmStatus,
+        database: dbStatus,
+        edgeFunctions: edgeFunctionsStatus
+      },
+      timestamp: new Date().toISOString(),
+      serverType: 'express',
+      version: '1.0.0'
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error instanceof Error ? error.message : '未知错误',
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // AI题目生成接口（非流式）

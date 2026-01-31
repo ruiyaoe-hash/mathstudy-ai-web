@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "NODE_ENV=development vite build --mode development",
+    "build": "set NODE_ENV=development && vite build --mode development",
     "build:prod": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -83,6 +83,7 @@
     "globals": "^16.3.0",
     "pnpm": "8.6.12",
     "postcss": "^8.5.6",
+    "supabase": "^2.72.9",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.21.0",
     "typescript": "^5.9.2",

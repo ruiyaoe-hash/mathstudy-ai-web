@@ -48,3 +48,38 @@ coverage/
 
 # Express server
 server/node_modules/
+
+.vercel
+
+# Test files
+test-*.js
+test-*.mjs
+diagnose-*.js
+check-*.js
+deploy-*.js
+view-*.js
+update-*.js
+update-*.mjs
+
+# Temporary files
+*.backup
+*.temp
+*.tmp
+
+# Trae AI documents
+.trae/
+
+# Temporary Edge Functions
+supabase/functions/*-test/
+supabase/functions/*-auth/
+supabase/functions/*-fixed/
+supabase/functions/simple-test/
+supabase/functions/test-*/
+supabase/functions/public-test/
+
+# Temporary documentation
+AUTH_IMPLEMENTATION.md
+DEPLOYMENT_TEST_SUMMARY.md
+EDGE_FUNCTION_401_ANALYSIS.md
+GLM4_FLASH_TEST_REPORT.md
+ZHIPU_API_TEST_REPORT.md

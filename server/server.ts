@@ -18,7 +18,7 @@ class ZhiPuAIClient {
   private apiKey: string;
   private model: string;
 
-  constructor(apiKey: string, model: string = 'glm-4') {
+  constructor(apiKey: string, model: string = 'glm-4-flash') {
     this.apiKey = apiKey;
     this.model = model;
   }
@@ -241,7 +241,7 @@ let llmClient: any = null;
 
 try {
   const apiKey = process.env.ZHIPU_API_KEY;
-  const model = process.env.ZHIPU_MODEL || 'glm-4';
+  const model = process.env.ZHIPU_MODEL || 'glm-4-flash';
   
   if (apiKey) {
     llmClient = new ZhiPuAIClient(apiKey, model);
@@ -376,7 +376,7 @@ app.post('/api/ai/generate-questions', async (req, res) => {
         ];
 
         const response = await llmClient.invoke(messages, {
-          model: process.env.ZHIPU_MODEL || 'glm-4',
+          model: process.env.ZHIPU_MODEL || 'glm-4-flash',
           temperature: 0.7,
         });
 
@@ -419,7 +419,7 @@ app.post('/api/ai/generate-questions', async (req, res) => {
             questionType: questionType || '选择题',
             generatedAt: new Date().toISOString(),
             aiProvider: 'zhipu',
-            model: process.env.ZHIPU_MODEL || 'glm-4'
+            model: process.env.ZHIPU_MODEL || 'glm-4-flash'
           }
         });
       } else {
@@ -667,7 +667,7 @@ app.post('/api/ai/solve-question', async (req, res) => {
         ];
 
         const response = await llmClient.invoke(messages, {
-          model: process.env.ZHIPU_MODEL || 'glm-4',
+          model: process.env.ZHIPU_MODEL || 'glm-4-flash',
           temperature: 0.7,
         });
 
@@ -703,7 +703,7 @@ app.post('/api/ai/solve-question', async (req, res) => {
           metadata: {
             generatedAt: new Date().toISOString(),
             aiProvider: 'zhipu',
-            model: process.env.ZHIPU_MODEL || 'glm-4'
+            model: process.env.ZHIPU_MODEL || 'glm-4-flash'
           }
         });
       } else {
@@ -787,7 +787,7 @@ app.post('/api/ai/analyze-mistake', async (req, res) => {
         ];
 
         const response = await llmClient.invoke(messages, {
-          model: process.env.ZHIPU_MODEL || 'glm-4',
+          model: process.env.ZHIPU_MODEL || 'glm-4-flash',
           temperature: 0.7,
         });
 
@@ -824,7 +824,7 @@ app.post('/api/ai/analyze-mistake', async (req, res) => {
           metadata: {
             generatedAt: new Date().toISOString(),
             aiProvider: 'zhipu',
-            model: process.env.ZHIPU_MODEL || 'glm-4'
+            model: process.env.ZHIPU_MODEL || 'glm-4-flash'
           }
         });
       } else {
@@ -910,7 +910,7 @@ app.post('/api/ai/chat', async (req, res) => {
         ];
 
         const response = await llmClient.invoke(messages, {
-          model: process.env.ZHIPU_MODEL || 'glm-4',
+          model: process.env.ZHIPU_MODEL || 'glm-4-flash',
           temperature: 0.7,
         });
 
@@ -920,7 +920,7 @@ app.post('/api/ai/chat', async (req, res) => {
             response: response.content || '',
             conversationId: conversationId || `conv_${Date.now()}`,
             aiProvider: 'zhipu',
-            model: process.env.ZHIPU_MODEL || 'glm-4',
+            model: process.env.ZHIPU_MODEL || 'glm-4-flash',
             confidence: 0.95,
             generatedAt: new Date().toISOString()
           },
@@ -1005,7 +1005,7 @@ app.post('/api/ai/explain-concept', async (req, res) => {
         ];
 
         const response = await llmClient.invoke(messages, {
-          model: process.env.ZHIPU_MODEL || 'glm-4',
+          model: process.env.ZHIPU_MODEL || 'glm-4-flash',
           temperature: 0.7,
         });
 
@@ -1038,7 +1038,7 @@ app.post('/api/ai/explain-concept', async (req, res) => {
           data: {
             ...result,
             aiProvider: 'zhipu',
-            model: process.env.ZHIPU_MODEL || 'glm-4',
+            model: process.env.ZHIPU_MODEL || 'glm-4-flash',
             generatedAt: new Date().toISOString()
           },
           error: null
@@ -1124,7 +1124,7 @@ app.get('/api/ai/learning-tips', async (req, res) => {
         ];
 
         const response = await llmClient.invoke(messages, {
-          model: process.env.ZHIPU_MODEL || 'glm-4',
+          model: process.env.ZHIPU_MODEL || 'glm-4-flash',
           temperature: 0.7,
         });
 
@@ -1157,7 +1157,7 @@ app.get('/api/ai/learning-tips', async (req, res) => {
           data: {
             ...result,
             aiProvider: 'zhipu',
-            model: process.env.ZHIPU_MODEL || 'glm-4',
+            model: process.env.ZHIPU_MODEL || 'glm-4-flash',
             generatedAt: new Date().toISOString()
           },
           error: null

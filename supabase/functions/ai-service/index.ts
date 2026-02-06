@@ -111,13 +111,13 @@ async function handleHealthCheck(provider: string): Promise<Response> {
   
   switch (provider) {
     case 'zhipu':
-      apiKey = Deno.env.get('ZHIPU_API_KEY')
+      apiKey = Deno.env.get('yaoruione')
       break
     case 'coze':
       apiKey = Deno.env.get('COZE_API_KEY')
       break
     default:
-      apiKey = Deno.env.get('ZHIPU_API_KEY')
+      apiKey = Deno.env.get('yaoruione')
   }
   
   if (apiKey) {
@@ -237,7 +237,7 @@ async function handleGenerateQuestions(req: Request, provider: string): Promise<
  * 使用智谱AI生成题目
  */
 async function generateQuestionsWithZhiPu(topic: string, grade: number, count: number, questionType: string, knowledgeId: string): Promise<any> {
-  const apiKey = Deno.env.get('ZHIPU_API_KEY')
+  const apiKey = Deno.env.get('yaoruione')
   if (!apiKey) {
     throw new Error('智谱AI API Key未配置')
   }
@@ -275,7 +275,7 @@ async function generateQuestionsWithZhiPu(topic: string, grade: number, count: n
 请只返回JSON，不要包含其他文字说明。`
 
   const response = await callZhiPuAIAPI(apiKey, prompt, {
-    model: 'glm-4',
+    model: 'glm-4.7',
     temperature: 0.7,
     max_tokens: 2000
   })
@@ -291,7 +291,7 @@ async function generateQuestionsWithZhiPu(topic: string, grade: number, count: n
     questions: result.questions || [],
     metadata: {
       aiProvider: 'zhipu',
-      model: 'glm-4',
+      model: 'glm-4.7',
       rawResponse: response.content
     }
   }
@@ -433,7 +433,7 @@ async function handleSolveQuestion(req: Request, provider: string): Promise<Resp
  * 使用智谱AI解题
  */
 async function solveQuestionWithZhiPu(question: string, grade: number): Promise<any> {
-  const apiKey = Deno.env.get('ZHIPU_API_KEY')
+  const apiKey = Deno.env.get('yaoruione')
   if (!apiKey) {
     throw new Error('智谱AI API Key未配置')
   }
@@ -467,7 +467,7 @@ async function solveQuestionWithZhiPu(question: string, grade: number): Promise<
 请只返回JSON，不要包含其他文字说明。`
 
   const response = await callZhiPuAIAPI(apiKey, prompt, {
-    model: 'glm-4',
+    model: 'glm-4.7',
     temperature: 0.7,
     max_tokens: 2000
   })
@@ -485,7 +485,7 @@ async function solveQuestionWithZhiPu(question: string, grade: number): Promise<
     teachingHint: result.teachingHint || '',
     metadata: {
       aiProvider: 'zhipu',
-      model: 'glm-4'
+      model: 'glm-4.7'
     }
   }
 }
@@ -620,7 +620,7 @@ async function handleChat(req: Request, provider: string): Promise<Response> {
  * 使用智谱AI聊天
  */
 async function chatWithZhiPu(message: string, grade: number, knowledgeId?: string): Promise<any> {
-  const apiKey = Deno.env.get('ZHIPU_API_KEY')
+  const apiKey = Deno.env.get('yaoruione')
   if (!apiKey) {
     throw new Error('智谱AI API Key未配置')
   }
@@ -636,7 +636,7 @@ async function chatWithZhiPu(message: string, grade: number, knowledgeId?: strin
 请保持回答友好、专业，并确保数学知识的准确性。`
 
   const response = await callZhiPuAIAPI(apiKey, message, {
-    model: 'glm-4',
+    model: 'glm-4.7',
     temperature: 0.7,
     max_tokens: 2000,
     systemPrompt
@@ -650,7 +650,7 @@ async function chatWithZhiPu(message: string, grade: number, knowledgeId?: strin
     data: {
       response: response.content || '',
       aiProvider: 'zhipu',
-      model: 'glm-4',
+      model: 'glm-4.7',
       confidence: 0.95,
       generatedAt: new Date().toISOString()
     }
@@ -767,7 +767,7 @@ async function handleExplainConcept(req: Request, provider: string): Promise<Res
  * 使用智谱AI解释概念
  */
 async function explainConceptWithZhiPu(concept: string, grade: number, examples: boolean): Promise<any> {
-  const apiKey = Deno.env.get('ZHIPU_API_KEY')
+  const apiKey = Deno.env.get('yaoruione')
   if (!apiKey) {
     throw new Error('智谱AI API Key未配置')
   }
@@ -794,7 +794,7 @@ async function explainConceptWithZhiPu(concept: string, grade: number, examples:
 请只返回JSON，不要包含其他文字说明。`
 
   const response = await callZhiPuAIAPI(apiKey, prompt, {
-    model: 'glm-4',
+    model: 'glm-4.7',
     temperature: 0.7,
     max_tokens: 2000
   })
@@ -810,7 +810,7 @@ async function explainConceptWithZhiPu(concept: string, grade: number, examples:
     data: {
       ...result,
       aiProvider: 'zhipu',
-      model: 'glm-4'
+      model: 'glm-4.7'
     }
   }
 }
@@ -941,7 +941,7 @@ async function handleAnalyzeMistake(req: Request, provider: string): Promise<Res
  * 使用智谱AI分析错误
  */
 async function analyzeMistakeWithZhiPu(question: string, wrongAnswer: string, correctAnswer: string, grade: number): Promise<any> {
-  const apiKey = Deno.env.get('ZHIPU_API_KEY')
+  const apiKey = Deno.env.get('yaoruione')
   if (!apiKey) {
     throw new Error('智谱AI API Key未配置')
   }
@@ -971,7 +971,7 @@ async function analyzeMistakeWithZhiPu(question: string, wrongAnswer: string, co
 请只返回JSON，不要包含其他文字说明。`
 
   const response = await callZhiPuAIAPI(apiKey, prompt, {
-    model: 'glm-4',
+    model: 'glm-4.7',
     temperature: 0.7,
     max_tokens: 2000
   })
@@ -990,7 +990,7 @@ async function analyzeMistakeWithZhiPu(question: string, wrongAnswer: string, co
     difficulty: result.difficulty || '中等',
     metadata: {
       aiProvider: 'zhipu',
-      model: 'glm-4'
+      model: 'glm-4.7'
     }
   }
 }
@@ -1122,7 +1122,7 @@ async function handleLearningTips(req: Request, provider: string): Promise<Respo
  * 使用智谱AI获取学习建议
  */
 async function getLearningTipsWithZhiPu(grade: number, subject: string): Promise<any> {
-  const apiKey = Deno.env.get('ZHIPU_API_KEY')
+  const apiKey = Deno.env.get('yaoruione')
   if (!apiKey) {
     throw new Error('智谱AI API Key未配置')
   }
@@ -1155,7 +1155,7 @@ async function getLearningTipsWithZhiPu(grade: number, subject: string): Promise
 请只返回JSON，不要包含其他文字说明。`
 
   const response = await callZhiPuAIAPI(apiKey, prompt, {
-    model: 'glm-4',
+    model: 'glm-4.7',
     temperature: 0.7,
     max_tokens: 2000
   })
@@ -1181,7 +1181,7 @@ async function getLearningTipsWithZhiPu(grade: number, subject: string): Promise
     data: {
       ...result,
       aiProvider: 'zhipu',
-      model: 'glm-4'
+      model: 'glm-4.7'
     }
   }
 }
